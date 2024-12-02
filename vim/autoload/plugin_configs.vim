@@ -2,6 +2,22 @@
 "                                   Pluglist                                   "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
+" bug fix in latest neovim
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+" chatgpt
+Plug 'CoderCookE/vim-chatgpt'
+let g:api_type = 'azure'
+let g:chat_gpt_key = ''
+let g:azure_endpoint = ''
+let g:azure_deployment = 'devapi4o'
+let g:azure_api_version = '2024-02-15-preview'
+let g:chat_gpt_model = 'gpt-4o'
+let g:chat_gpt_split_direction = 'horizontal'
+let g:split_ratio=4
+let g:chat_gpt_lang="Chinese"
+let g:chat_gpt_session_mode=1
+let g:chat_gpt_max_tokens=4096
 
 " System
 Plug 'vim-scripts/LargeFile'                            " Fast Load for Large files
@@ -47,9 +63,11 @@ Plug 'ntpeters/vim-better-whitespace'
 
 
 " Writing Blog
-Plug 'plasticboy/vim-markdown', {'for': ['markdown']}
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+" Plug 'plasticboy/vim-markdown', {'for': ['markdown']} # disable for conflict
+" with other syntax plugin
 Plug 'mzlogin/vim-markdown-toc', {'for': ['markdown']}
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
 " :GenTocGFM/:GenTocRedcarpet
 ":UpdateToc 更新目录
 Plug 'dhruvasagar/vim-table-mode', {'for': ['markdown']}
@@ -59,8 +77,8 @@ Plug 'dhruvasagar/vim-table-mode', {'for': ['markdown']}
 "<leader>tdd to delete the row
 "<leader>tdc to delete the coloum
 "<leader>tt to change the exist text to format table
-" Plug 'xuhdev/vim-latex-live-preview', {'for': ['tex']}                          " Use when you work with cn
-" Plug 'lervag/vimtex', {'for': ['tex']}                                          " English is okay, fail with cn
+Plug 'xuhdev/vim-latex-live-preview', {'for': ['tex']}                          " Use when you work with cn
+Plug 'lervag/vimtex', {'for': ['tex']}                                          " English is okay, fail with cn
 
 "FileManage
 " Plug 'mhinz/vim-startify'
@@ -95,7 +113,7 @@ Plug 'APZelos/blamer.nvim'
 
 " Search
 Plug 'nvim-lua/plenary.nvim'
-Plug 'mrjones2014/dash.nvim' , { 'do': 'make install' }
+" Plug 'mrjones2014/dash.nvim' , { 'do': 'make install' }
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.2' }
 Plug 'junegunn/vim-slash'                                                       " clean hightline after search
 call plug#end()
@@ -107,7 +125,7 @@ call plug#end()
 
 " APZelos/blamer.nvim
 let g:blamer_enabled = 1           " auto enable
-let g:blamer_show_in_visual_modes = 0
+let g:blamer_show_in_visual_modes = 1
 
 " skywind3000/asynctasks.vim
 let g:asyncrun_open=6
@@ -133,22 +151,6 @@ augroup END
 " ncm2/float-preview.nvim
 let g:float_preview#docked = 0
 
-" translate-me
-let g:vtm_default_mapping = 0
-let g:vtm_target_lang = 'en' " default translate to english
-let g:vtm_default_engines = ['ciba', 'youdao']
-" let g:vtm_proxy_url = 'socks5://127.0.0.1:1080'
-
-" <Leader>zt 翻译光标下的文本，在命令行回显
-nmap <silent> <Leader>zt <Plug>Translate
-vmap <silent> <Leader>zt <Plug>TranslateV
-" Leader>zw 翻译光标下的文本，在窗口中显示
-nmap <silent> <Leader>zw <Plug>TranslateW
-vmap <silent> <Leader>zw <Plug>TranslateWV
-" Leader>zr 替换光标下的文本为翻译内容
-nmap <silent> <Leader>zr <Plug>TranslateR
-vmap <silent> <Leader>zr <Plug>TranslateRV
-
 " rainbow
 let g:rainbow_active = 1
 
@@ -162,17 +164,16 @@ if has('timers')
   noremap <expr> <plug>(slash-after) slash#blink(2, 50)
 endif
 
-" TODO(Duan-JM): No Longer use Latex, However these plugs are perfect
-""vim-latex-live-preview
-"autocmd Filetype tex setl updatetime=1
-"let g:livepreview_previewer = 'open -a Preview'
+"vim-latex-live-preview
+autocmd Filetype tex setl updatetime=1
+let g:livepreview_previewer = 'open -a Preview'
 
-""vimtex
-"let g:tex_flavor='latex'
-"let g:vimtex_view_method='skim'
-"let g:vimtex_quickfix_mode=0
-"set conceallevel=1
-"let g:tex_conceal='abdmg'
+"vimtex
+let g:tex_flavor='latex'
+let g:vimtex_view_method='skim'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
 
 " TODO(Duan-JM): No need for this
 ""mhinz/vim-startify
@@ -270,6 +271,7 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
 " Telescope
 " Find files using Telescope command-line sugar.
+" C-v to open in vsplit, C-x to open in split
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
@@ -327,7 +329,6 @@ let g:ultisnips_python_style = 'google'
 
 " Appearance Settings
 colorscheme lighthaus_dark
-
 
 func plugin_configs#init_plugin_configs()
   echom "plugin configs activated"

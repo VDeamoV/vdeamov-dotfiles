@@ -27,5 +27,10 @@
   },
   "snippets.ultisnips.pythonPrompt": false,
   "python.formatting.blackPath": "black",
-  "python.formatting.provider": "black"
+  "python.formatting.provider": "black",
+  "java.jdt.ls.java.home": "/opt/homebrew/Cellar/openjdk@11/11.0.25/libexec/openjdk.jdk/Contents/Home",
+  "java.jdt.ls.vmargs": "-Xmx1G -XX:+UseG1GC -XX:+UseStringDeduplication",
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
+  "java.format.settings.profile": "GoogleStyle"
 }

@@ -48,9 +48,6 @@ endfunction
 
 " Highlight the symbol and its references when holding the cursor.
 " autocmd CursorHold * silent call CocActionAsync('highlight')
-
-
-
 func! coc_configuration#init_coc_config()
   echom "coc config actiaved"
 endfunc
